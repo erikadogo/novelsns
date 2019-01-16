@@ -1,7 +1,7 @@
 package test;
 
+import model.Account;
 import model.RegisterUserLogic;
-import model.User;
 
 public class RegisterTest {
 
@@ -11,9 +11,9 @@ public class RegisterTest {
 	}
 
 	public static void testExecute1(){
-		User user = new User("goto12","erika@gmail.com","erika","12345");
+		Account registUser = new Account("goto12","12345","erika@gmail.com","erika");
 		RegisterUserLogic bo = new RegisterUserLogic();
-		boolean result = bo.execute(user);
+		boolean result = bo.execute(registUser);
 		if(result){
 			System.out.println("成功しました");
 		}else{
@@ -22,12 +22,12 @@ public class RegisterTest {
 	}
 
 	public static void testExecute2(){
-		User user = new User("minato","minato@sukkiri.com","1234");
+		Account registUser = new Account("minato1","1234","minato@sukkiri.com","minato");
 		RegisterUserLogic bo = new RegisterUserLogic();
-		boolean result = bo.execute(user);
+		boolean result = bo.execute(registUser);
 		if(!result){
 			System.out.println("成功しました");
-		}else{
+		}else if(result){
 			System.out.println("失敗しました");
 		}
 	}

@@ -1,19 +1,22 @@
 package model;
 
-import dao.RegisterUserDAO;
+import dao.AccountDAO;
 
 public class RegisterUserLogic {
-	public boolean execute(User user){
-		//登録処理
-		//ID、メールをデータベースから検索し同じものがないか調べる
-		String id = user.getId();
-		String mail = user.getMail();
-		RegisterUserDAO dao = new RegisterUserDAO();
+	public boolean execute(Account account){
+		String id = account.getUserId();
+		String mail = account.getMail();
+		AccountDAO dao = new AccountDAO();
 
-		if(dao.findId(id) || dao.findMail(mail)){
+		//ID、メールをデータベースから検索し同じものがないか調べる
+		boolean isFindId = dao.findId(id);
+		boolean isFindMail = dao.findMail(mail);
+
+		if(isFindId || isFindMail){
 			return false;
 		}else{
-			dao.create(user);
+			//登録処理
+			dao.create(account);
 			return true;
 		}
 
