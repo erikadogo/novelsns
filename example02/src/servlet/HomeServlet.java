@@ -29,7 +29,7 @@ public class HomeServlet extends HttpServlet {
 		if(loginUser == null){//ログインしていない場合
 			response.sendRedirect("/registerForm.jsp");
 		}else{
-
+			response.sendRedirect("/Main");
 		}
 
 	}

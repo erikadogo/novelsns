@@ -5,14 +5,14 @@ public class Novel {
 	private String title;
 	private String text;
 	private String genre;
-	private String desc;
+	private String summary;
 
-	public Novel(String novelId, String title, String text, String genre, String desc) {
+	public Novel(String novelId, String title, String text, String genre, String summary) {
 		this.novelId = novelId;
 		this.title = title;
 		this.text = text;
 		this.genre = genre;
-		this.desc = desc;
+		this.summary = summary;
 	}
 
 	public String getNovelId() {
@@ -31,8 +31,8 @@ public class Novel {
 		return genre;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getSummary() {
+		return summary;
 	}
 
 }

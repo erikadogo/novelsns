@@ -13,6 +13,7 @@ public class AccountDAO {
 
 	public boolean findId(String id){//IDの重複をチェック
         Connection conn = null;
+        Account account = null;
 
         final String DRIVER_NAME = "com.mysql.jdbc.Driver";//MySQLドライバ
         final String DB_URL = "jdbc:mysql://localhost:3306/";//DBサーバー名
@@ -33,7 +34,12 @@ public class AccountDAO {
 			pStmt.setString(1,id);
 			//SELECT文の実行
 			ResultSet rs = pStmt.executeQuery();
-			if(rs.equals(id)){
+			
+			while(rs.next()) {
+				String rsId = rs.getString("user_id");
+				account = new Account(rsId);
+			}
+			if(account.getMail().equals(id)) {
 				return true;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
@@ -64,6 +70,7 @@ public class AccountDAO {
         try {
 			Class.forName(DRIVER_NAME);
 			conn = DriverManager.getConnection(DB_URL + DB_NAME+DB_ENCODE , DB_USER, DB_PASS);
+			Account account = null;
 
 			//SELECT文を準備
 			String sql = "SELECT MAIL FROM account WHERE MAIL=?";
@@ -73,11 +80,17 @@ public class AccountDAO {
 			pStmt.setString(1,mail);
 			//SELECT文の実行
 			ResultSet rs = pStmt.executeQuery();
-			if(rs.equals(mail)){
+			
+			while(rs.next()) {
+				String rsMail = rs.getString("mail");
+				account = new Account(rsMail);
+			}
+			if(account.getMail().equals(mail)){
 				return true;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			return true;
 		}finally{
 			try {
 				conn.close();
@@ -128,7 +141,6 @@ public class AccountDAO {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				return false;
 			}
 		}
         return true;
